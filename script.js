@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function loadQuestion() {
         selectedAnswer = null;
+        document.getElementById('next-btn').textContent = "Next";
         const currentQuestion = quizData[currentQuestionIndex];
         document.getElementById('question').textContent = currentQuestion.question;
         const choicesList = document.getElementById('choices');
@@ -33,28 +34,31 @@ document.addEventListener('DOMContentLoaded', function() {
             li.textContent = choice;
             li.dataset.index = index;
             li.classList.add('choice-item');
+
+            // Permitir cambiar de selección
             li.addEventListener('click', function() {
-                if (selectedAnswer === null) {
-                    selectedAnswer = index;
-                    highlightSelection(index);
-                }
+                selectedAnswer = index;
+                highlightSelection();
             });
+
             choicesList.appendChild(li);
         });
     }
 
-    function highlightSelection(selectedIndex) {
+    function highlightSelection() {
         document.querySelectorAll('.choice-item').forEach((li, index) => {
-            if (index === selectedIndex) {
+            if (index === selectedAnswer) {
                 li.classList.add('selected');
+                li.classList.remove('unselected');
             } else {
+                li.classList.remove('selected');
                 li.classList.add('unselected');
             }
         });
     }
 
     document.getElementById('next-btn').addEventListener('click', function() {
-        if (selectedAnswer === null) return; // No avanzar sin seleccionar una respuesta
+        if (selectedAnswer === null) return;
 
         const currentQuestion = quizData[currentQuestionIndex];
 

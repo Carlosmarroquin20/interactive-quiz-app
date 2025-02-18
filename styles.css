@@ -47,16 +47,16 @@ body {
     transition: background-color 0.3s, opacity 0.3s;
 }
 
-/* When a user selects an option */
+/* Selected option */
 .selected {
-    background-color: #4CAF50; /* Green for selection */
+    background-color: #4CAF50; /* Green */
     color: white;
     font-weight: bold;
 }
 
 /* Other options fade out */
 .unselected {
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 /* Next button styling */
