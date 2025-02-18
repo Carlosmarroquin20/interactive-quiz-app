@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
             li.dataset.index = index;
             li.classList.add('choice-item');
 
-            // Permitir cambiar de selección
+            // Permitir cambiar de selección con animación
             li.addEventListener('click', function() {
                 selectedAnswer = index;
                 highlightSelection();
@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
         currentQuestionIndex = 0;
         score = 0;
 
-        // Restaurar el contenido HTML original del contenedor
         document.getElementById('quiz-container').innerHTML = `
             <h1>Quiz App</h1>
             <div id="question"></div>
@@ -98,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function() {
             <button id="next-btn">Next</button>
         `;
 
-        // Reasignar el event listener al botón "Next"
         document.getElementById('next-btn').addEventListener('click', function() {
             if (selectedAnswer === null) return;
 

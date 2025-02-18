@@ -44,22 +44,29 @@ body {
     padding: 10px;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s, opacity 0.3s;
+    transition: all 0.3s ease-in-out;
 }
 
-/* Selected option */
+/* Efecto cuando se selecciona */
 .selected {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50; /* Verde */
     color: white;
     font-weight: bold;
+    transform: scale(1.05); /* Efecto de agrandamiento */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Other options fade out */
+/* Otras opciones se atenúan */
 .unselected {
     opacity: 0.6;
 }
 
-/* Next button styling */
+/* Efecto hover */
+.choice-item:hover {
+    background-color: #ddd;
+}
+
+/* Botón de Next */
 #next-btn {
     padding: 10px 20px;
     border: none;
@@ -75,7 +82,7 @@ body {
     background-color: #45a049;
 }
 
-/* Button for "Play Again" */
+/* Botón de Play Again */
 #play-again-btn {
     padding: 10px 20px;
     border: none;
