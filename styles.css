@@ -98,3 +98,10 @@ body {
 #play-again-btn:hover {
     background-color: #0056b3;
 }
+
+#timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #d9534f;
+    margin-bottom: 10px;
+}

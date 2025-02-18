@@ -20,9 +20,30 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentQuestionIndex = 0;
     let score = 0;
     let selectedAnswer = null;
+    let timer;
+    let timeLeft = 10;
+
+    function startTimer() {
+        timeLeft = 10;
+        document.getElementById('timer').textContent = `Time left: ${timeLeft}s`;
+
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timer').textContent = `Time left: ${timeLeft}s`;
+
+            if (timeLeft === 0) {
+                clearInterval(timer);
+                selectedAnswer = null; // No respondió, se considera incorrecto
+                nextQuestion();
+            }
+        }, 1000);
+    }
 
     function loadQuestion() {
         selectedAnswer = null;
+        clearInterval(timer);
+        startTimer();
+
         document.getElementById('next-btn').textContent = "Next";
         const currentQuestion = quizData[currentQuestionIndex];
         document.getElementById('question').textContent = currentQuestion.question;
@@ -35,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
             li.dataset.index = index;
             li.classList.add('choice-item');
 
-            // Permitir cambiar de selección con animación
             li.addEventListener('click', function() {
                 selectedAnswer = index;
                 highlightSelection();
@@ -59,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('next-btn').addEventListener('click', function() {
         if (selectedAnswer === null) return;
+        clearInterval(timer); // Detener temporizador al avanzar
 
         const currentQuestion = quizData[currentQuestionIndex];
 
@@ -66,13 +87,18 @@ document.addEventListener('DOMContentLoaded', function() {
             score++;
         }
 
+        nextQuestion();
+    });
+
+    function nextQuestion() {
+        clearInterval(timer);
         currentQuestionIndex++;
         if (currentQuestionIndex < quizData.length) {
             loadQuestion();
         } else {
             showResults();
         }
-    });
+    }
 
     function showResults() {
         document.getElementById('quiz-container').innerHTML = `
@@ -92,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.getElementById('quiz-container').innerHTML = `
             <h1>Quiz App</h1>
+            <p id="timer">Time left: ${timeLeft}s</p>
             <div id="question"></div>
             <ul id="choices"></ul>
             <button id="next-btn">Next</button>
@@ -99,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.getElementById('next-btn').addEventListener('click', function() {
             if (selectedAnswer === null) return;
+            clearInterval(timer); // Detener temporizador al avanzar
 
             const currentQuestion = quizData[currentQuestionIndex];
 
@@ -106,16 +134,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 score++;
             }
 
-            currentQuestionIndex++;
-            if (currentQuestionIndex < quizData.length) {
-                loadQuestion();
-            } else {
-                showResults();
-            }
+            nextQuestion();
         });
 
         loadQuestion();
     }
+
+    document.getElementById('quiz-container').innerHTML = `
+        <h1>Quiz App</h1>
+        <p id="timer">Time left: ${timeLeft}s</p>
+        <div id="question"></div>
+        <ul id="choices"></ul>
+        <button id="next-btn">Next</button>
+    `;
+
+    document.getElementById('next-btn').addEventListener('click', function() {
+        if (selectedAnswer === null) return;
+        clearInterval(timer);
+
+        const currentQuestion = quizData[currentQuestionIndex];
+
+        if (selectedAnswer === currentQuestion.correct) {
+            score++;
+        }
+
+        nextQuestion();
+    });
 
     loadQuestion();
 });
