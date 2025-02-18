@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             correct: 1
         }
     ];
+    
 
     let currentQuestionIndex = 0;
     let score = 0;
@@ -37,15 +38,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (timeLeft === 0) {
                 clearInterval(timer);
-                selectedAnswer = null;
+                selectedAnswer = null; // No respondió, se considera incorrecto
                 nextQuestion();
             }
         }, 1000);
     }
 
-    // 🌓 Toggle Dark Mode
+    // Function to toggle between Light Mode and Dark Mode
     function toggleTheme() {
         document.body.classList.toggle("dark-mode");
+
+        // Save user preference in localStorage
         if (document.body.classList.contains("dark-mode")) {
             localStorage.setItem("theme", "dark");
         } else {
@@ -53,43 +56,40 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 🌙 Apply saved theme
+    // Function to apply the saved theme from localStorage
     function applySavedTheme() {
-        if (localStorage.getItem("theme") === "dark") {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
             document.body.classList.add("dark-mode");
         }
     }
-
-    // 🛠 FIX: Apply theme & add event listener to button
-    applySavedTheme();
-    document.getElementById("theme-toggle").addEventListener("click", toggleTheme);
 
     function loadQuestion() {
         selectedAnswer = null;
         clearInterval(timer);
         startTimer();
         document.getElementById('next-btn').textContent = "Next";
-
+    
         const currentQuestion = quizData[currentQuestionIndex];
         document.getElementById('question').textContent = currentQuestion.question;
         const choicesList = document.getElementById('choices');
         choicesList.innerHTML = '';
-
+    
         currentQuestion.choices.forEach((choice, index) => {
             const li = document.createElement('li');
             li.textContent = choice;
             li.dataset.index = index;
             li.classList.add('choice-item');
-
+    
             li.addEventListener('click', function() {
                 selectedAnswer = index;
                 highlightSelection();
             });
-
+    
             choicesList.appendChild(li);
         });
     }
-
+    
     function highlightSelection() {
         document.querySelectorAll('.choice-item').forEach((li, index) => {
             if (index === selectedAnswer) {
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('next-btn').addEventListener('click', function() {
         if (selectedAnswer === null) return;
-        clearInterval(timer);
+        clearInterval(timer); // Detener temporizador al avanzar
 
         const currentQuestion = quizData[currentQuestionIndex];
 
@@ -117,32 +117,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function nextQuestion() {
         clearInterval(timer);
-
+    
         const currentQuestion = quizData[currentQuestionIndex];
-
+    
         if (selectedAnswer !== null) {
             if (selectedAnswer === currentQuestion.correct) {
-                correctSound.play();
+                correctSound.play(); //  Sonido correcto
                 score++;
             } else {
-                incorrectSound.play();
+                incorrectSound.play(); // Sonido incorrecto
             }
         }
-
+    
         userAnswers.push({
             question: currentQuestion.question,
             choices: currentQuestion.choices,
             correctAnswer: currentQuestion.correct,
             userAnswer: selectedAnswer
         });
-
+    
         currentQuestionIndex++;
         if (currentQuestionIndex < quizData.length) {
-            setTimeout(loadQuestion, 500);
+            setTimeout(loadQuestion, 500); // Pequeño retraso para que el sonido se escuche bien
         } else {
             setTimeout(showResults, 500);
         }
     }
+    
+    
 
     function showResults() {
         let resultHTML = `
@@ -151,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <h3>Review Your Answers:</h3>
             <ul class="results-list">
         `;
-
+    
         userAnswers.forEach((entry, index) => {
             let isCorrect = entry.userAnswer === entry.correctAnswer;
             resultHTML += `
@@ -162,26 +164,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 </li>
             `;
         });
-
+    
         resultHTML += `</ul><button id="play-again-btn">Play Again</button>`;
-
+    
         document.getElementById('quiz-container').innerHTML = resultHTML;
-
+    
         document.getElementById('play-again-btn').addEventListener('click', function() {
             resetQuiz();
         });
     }
 
+    
+    
     function resetQuiz() {
         correctSound.pause();
         incorrectSound.pause();
         correctSound.currentTime = 0;
         incorrectSound.currentTime = 0;
-
+    
         currentQuestionIndex = 0;
         score = 0;
         userAnswers = [];
-
+    
         document.getElementById('quiz-container').innerHTML = `
             <h1>Quiz App</h1>
             <p id="timer">Time left: ${timeLeft}s</p>
@@ -189,25 +193,46 @@ document.addEventListener('DOMContentLoaded', function() {
             <ul id="choices"></ul>
             <button id="next-btn">Next</button>
         `;
-
+    
         document.getElementById('next-btn').addEventListener('click', function() {
             if (selectedAnswer === null) return;
             clearInterval(timer);
-
+    
             const currentQuestion = quizData[currentQuestionIndex];
-
+    
             if (selectedAnswer === currentQuestion.correct) {
                 correctSound.play();
                 score++;
             } else {
                 incorrectSound.play();
             }
-
+    
             nextQuestion();
         });
-
+    
         loadQuestion();
     }
+    
+    document.getElementById('quiz-container').innerHTML = `
+        <h1>Quiz App</h1>
+        <p id="timer">Time left: ${timeLeft}s</p>
+        <div id="question"></div>
+        <ul id="choices"></ul>
+        <button id="next-btn">Next</button>
+    `;
+
+    document.getElementById('next-btn').addEventListener('click', function() {
+        if (selectedAnswer === null) return;
+        clearInterval(timer);
+
+        const currentQuestion = quizData[currentQuestionIndex];
+
+        if (selectedAnswer === currentQuestion.correct) {
+            score++;
+        }
+
+        nextQuestion();
+    });
 
     loadQuestion();
 });
