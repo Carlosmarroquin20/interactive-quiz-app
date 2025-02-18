@@ -63,3 +63,14 @@ body {
 #next-btn:hover {
     background-color: #45a049;
 }
+
+.correct {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.incorrect {
+    background-color: #f44336;
+    color: white;
+}
+
