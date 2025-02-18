@@ -1,3 +1,6 @@
+const correctSound = new Audio('sounds/correct.mp3');
+const incorrectSound = new Audio('sounds/incorrect.mp3');
+
 document.addEventListener('DOMContentLoaded', function() {
     const quizData = [
         {
@@ -16,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             correct: 1
         }
     ];
+    
 
     let currentQuestionIndex = 0;
     let score = 0;
@@ -96,6 +100,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
         const currentQuestion = quizData[currentQuestionIndex];
     
+        if (selectedAnswer !== null) {
+            if (selectedAnswer === currentQuestion.correct) {
+                correctSound.play(); //  Sonido correcto
+                score++;
+            } else {
+                incorrectSound.play(); // Sonido incorrecto
+            }
+        }
+    
         userAnswers.push({
             question: currentQuestion.question,
             choices: currentQuestion.choices,
@@ -105,11 +118,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
         currentQuestionIndex++;
         if (currentQuestionIndex < quizData.length) {
-            loadQuestion();
+            setTimeout(loadQuestion, 500); // Pequeño retraso para que el sonido se escuche bien
         } else {
-            showResults();
+            setTimeout(showResults, 500);
         }
     }
+    
     
 
     function showResults() {
@@ -142,6 +156,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
     function resetQuiz() {
+        correctSound.pause();
+        incorrectSound.pause();
+        correctSound.currentTime = 0;
+        incorrectSound.currentTime = 0;
+    
         currentQuestionIndex = 0;
         score = 0;
         userAnswers = [];
@@ -161,7 +180,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentQuestion = quizData[currentQuestionIndex];
     
             if (selectedAnswer === currentQuestion.correct) {
+                correctSound.play();
                 score++;
+            } else {
+                incorrectSound.play();
             }
     
             nextQuestion();
@@ -170,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function() {
         loadQuestion();
     }
     
-
     document.getElementById('quiz-container').innerHTML = `
         <h1>Quiz App</h1>
         <p id="timer">Time left: ${timeLeft}s</p>
