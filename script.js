@@ -70,12 +70,54 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentQuestionIndex < quizData.length) {
             loadQuestion();
         } else {
-            document.getElementById('quiz-container').innerHTML = `
-                <h2>Quiz Completed!</h2>
-                <p>Your score: ${score} / ${quizData.length}</p>
-            `;
+            showResults();
         }
     });
+
+    function showResults() {
+        document.getElementById('quiz-container').innerHTML = `
+            <h2>Quiz Completed!</h2>
+            <p>Your score: ${score} / ${quizData.length}</p>
+            <button id="play-again-btn">Play Again</button>
+        `;
+
+        document.getElementById('play-again-btn').addEventListener('click', function() {
+            resetQuiz();
+        });
+    }
+
+    function resetQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+
+        // Restaurar el contenido HTML original del contenedor
+        document.getElementById('quiz-container').innerHTML = `
+            <h1>Quiz App</h1>
+            <div id="question"></div>
+            <ul id="choices"></ul>
+            <button id="next-btn">Next</button>
+        `;
+
+        // Reasignar el event listener al botón "Next"
+        document.getElementById('next-btn').addEventListener('click', function() {
+            if (selectedAnswer === null) return;
+
+            const currentQuestion = quizData[currentQuestionIndex];
+
+            if (selectedAnswer === currentQuestion.correct) {
+                score++;
+            }
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        loadQuestion();
+    }
 
     loadQuestion();
 });

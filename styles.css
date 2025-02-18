@@ -74,3 +74,20 @@ body {
 #next-btn:hover {
     background-color: #45a049;
 }
+
+/* Button for "Play Again" */
+#play-again-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+#play-again-btn:hover {
+    background-color: #0056b3;
+}
