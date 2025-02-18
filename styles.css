@@ -105,3 +105,27 @@ body {
     color: #d9534f;
     margin-bottom: 10px;
 }
+
+.results-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.results-list li {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.correct-answer {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.incorrect-answer {
+    background-color: #f44336;
+    color: white;
+}

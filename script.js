@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedAnswer = null;
     let timer;
     let timeLeft = 10;
+    let userAnswers = [];
 
     function startTimer() {
         timeLeft = 10;
@@ -43,28 +44,28 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedAnswer = null;
         clearInterval(timer);
         startTimer();
-
         document.getElementById('next-btn').textContent = "Next";
+    
         const currentQuestion = quizData[currentQuestionIndex];
         document.getElementById('question').textContent = currentQuestion.question;
         const choicesList = document.getElementById('choices');
         choicesList.innerHTML = '';
-
+    
         currentQuestion.choices.forEach((choice, index) => {
             const li = document.createElement('li');
             li.textContent = choice;
             li.dataset.index = index;
             li.classList.add('choice-item');
-
+    
             li.addEventListener('click', function() {
                 selectedAnswer = index;
                 highlightSelection();
             });
-
+    
             choicesList.appendChild(li);
         });
     }
-
+    
     function highlightSelection() {
         document.querySelectorAll('.choice-item').forEach((li, index) => {
             if (index === selectedAnswer) {
@@ -92,6 +93,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function nextQuestion() {
         clearInterval(timer);
+    
+        const currentQuestion = quizData[currentQuestionIndex];
+    
+        userAnswers.push({
+            question: currentQuestion.question,
+            choices: currentQuestion.choices,
+            correctAnswer: currentQuestion.correct,
+            userAnswer: selectedAnswer
+        });
+    
         currentQuestionIndex++;
         if (currentQuestionIndex < quizData.length) {
             loadQuestion();
@@ -99,23 +110,42 @@ document.addEventListener('DOMContentLoaded', function() {
             showResults();
         }
     }
+    
 
     function showResults() {
-        document.getElementById('quiz-container').innerHTML = `
+        let resultHTML = `
             <h2>Quiz Completed!</h2>
             <p>Your score: ${score} / ${quizData.length}</p>
-            <button id="play-again-btn">Play Again</button>
+            <h3>Review Your Answers:</h3>
+            <ul class="results-list">
         `;
-
+    
+        userAnswers.forEach((entry, index) => {
+            let isCorrect = entry.userAnswer === entry.correctAnswer;
+            resultHTML += `
+                <li class="${isCorrect ? 'correct-answer' : 'incorrect-answer'}">
+                    <strong>Q${index + 1}:</strong> ${entry.question} <br>
+                    <span>Your answer: ${entry.choices[entry.userAnswer] || "No answer"}</span> <br>
+                    <span>Correct answer: ${entry.choices[entry.correctAnswer]}</span>
+                </li>
+            `;
+        });
+    
+        resultHTML += `</ul><button id="play-again-btn">Play Again</button>`;
+    
+        document.getElementById('quiz-container').innerHTML = resultHTML;
+    
         document.getElementById('play-again-btn').addEventListener('click', function() {
             resetQuiz();
         });
     }
+    
 
     function resetQuiz() {
         currentQuestionIndex = 0;
         score = 0;
-
+        userAnswers = [];
+    
         document.getElementById('quiz-container').innerHTML = `
             <h1>Quiz App</h1>
             <p id="timer">Time left: ${timeLeft}s</p>
@@ -123,22 +153,23 @@ document.addEventListener('DOMContentLoaded', function() {
             <ul id="choices"></ul>
             <button id="next-btn">Next</button>
         `;
-
+    
         document.getElementById('next-btn').addEventListener('click', function() {
             if (selectedAnswer === null) return;
-            clearInterval(timer); // Detener temporizador al avanzar
-
+            clearInterval(timer);
+    
             const currentQuestion = quizData[currentQuestionIndex];
-
+    
             if (selectedAnswer === currentQuestion.correct) {
                 score++;
             }
-
+    
             nextQuestion();
         });
-
+    
         loadQuestion();
     }
+    
 
     document.getElementById('quiz-container').innerHTML = `
         <h1>Quiz App</h1>
