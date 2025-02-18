@@ -38,16 +38,25 @@ body {
     margin-bottom: 20px;
 }
 
-#choices li {
+.choice-item {
     background-color: #f1f1f1;
     margin: 5px 0;
     padding: 10px;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s, opacity 0.3s;
 }
 
-#choices li:hover {
-    background-color: #ddd;
+/* When a user selects an option */
+.selected {
+    background-color: #4CAF50; /* Green for selection */
+    color: white;
+    font-weight: bold;
+}
+
+/* Other options fade out */
+.unselected {
+    opacity: 0.5;
 }
 
 /* Next button styling */
@@ -58,30 +67,10 @@ body {
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
 }
 
 #next-btn:hover {
     background-color: #45a049;
 }
-
-.correct {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.incorrect {
-    background-color: #f44336;
-    color: white;
-}
-
-/* Style for the selected option */
-.selected {
-    background-color: #ADD8E6; /* Light blue */
-    color: #000;
-}
-
-/* Style for non-selected options after a selection is made */
-.unselected {
-    opacity: 0.6;
-}
-
