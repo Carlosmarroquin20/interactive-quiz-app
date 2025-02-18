@@ -44,6 +44,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     }
 
+    // Function to toggle between Light Mode and Dark Mode
+    function toggleTheme() {
+        document.body.classList.toggle("dark-mode");
+
+        // Save user preference in localStorage
+        if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+        } else {
+            localStorage.setItem("theme", "light");
+        }
+    }
+
+    // Function to apply the saved theme from localStorage
+    function applySavedTheme() {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+            document.body.classList.add("dark-mode");
+        }
+    }
+
+    // Ensure the theme is applied when the page loads
+    document.addEventListener("DOMContentLoaded", function() {
+        applySavedTheme();
+        document.getElementById("theme-toggle").addEventListener("click", toggleTheme);
+    });
+
+
     function loadQuestion() {
         selectedAnswer = null;
         clearInterval(timer);
@@ -153,8 +180,9 @@ document.addEventListener('DOMContentLoaded', function() {
             resetQuiz();
         });
     }
-    
 
+    
+    
     function resetQuiz() {
         correctSound.pause();
         incorrectSound.pause();

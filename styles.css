@@ -129,3 +129,55 @@ body {
     background-color: #f44336;
     color: white;
 }
+
+/* Dark mode styles */
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Estilos específicos para elementos en modo oscuro */
+.dark-mode #quiz-container {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .choice-item {
+    background-color: #333;
+    color: white;
+}
+
+.dark-mode .selected {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.dark-mode .incorrect-answer {
+    background-color: #d32f2f;
+}
+
+.dark-mode .correct-answer {
+    background-color: #388e3c;
+}
+
+/* Dark mode toggle button */
+#theme-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    transition: background-color 0.3s;
+    z-index: 1000; /* Para asegurarse de que no quede oculto */
+}
+
+#theme-toggle:hover {
+    background-color: #45a049;
+}
+
