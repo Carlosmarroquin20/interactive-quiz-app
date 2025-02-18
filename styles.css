@@ -1,0 +1,65 @@
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0f7fa;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Quiz container styling */
+#quiz-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
+
+/* Styling for question and choices */
+#question {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+#choices {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+#choices li {
+    background-color: #f1f1f1;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#choices li:hover {
+    background-color: #ddd;
+}
+
+/* Next button styling */
+#next-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #4CAF50;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#next-btn:hover {
+    background-color: #45a049;
+}
