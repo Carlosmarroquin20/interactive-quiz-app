@@ -74,3 +74,14 @@ body {
     color: white;
 }
 
+/* Style for the selected option */
+.selected {
+    background-color: #ADD8E6; /* Light blue */
+    color: #000;
+}
+
+/* Style for non-selected options after a selection is made */
+.unselected {
+    opacity: 0.6;
+}
+
