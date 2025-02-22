@@ -1,14 +1,6 @@
-/* Reset default browser styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-/* Background con degradado dinámico */
+/* 🌟 Estilo del fondo con mejor contraste */
 body {
-    background: linear-gradient(120deg, #00b4db, #0083b0);
+    background: linear-gradient(120deg, #1e3c72, #2a5298); /* Azul oscuro con gradiente */
     color: #fff;
     display: flex;
     justify-content: center;
@@ -17,46 +9,29 @@ body {
     transition: background 0.5s ease-in-out;
 }
 
-/* Contenedor del quiz */
+/* 📌 Contenedor principal con mejor contraste */
 #quiz-container {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 12px;
     padding: 25px;
     width: 90%;
     max-width: 500px;
     text-align: center;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease-in-out;
 }
 
-/* Efecto hover en el contenedor */
-#quiz-container:hover {
-    transform: scale(1.02);
-}
-
-/* Título del quiz */
-h1 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-}
-
-/* Preguntas */
+/* 🌟 Pregunta del quiz */
 #question {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    font-weight: bold;
     margin-bottom: 15px;
 }
 
-/* Lista de opciones */
-#choices {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
-}
-
-/* Opciones con estilo de botón */
+/* 📌 Opciones de respuesta */
 .choice-item {
-    background: #ffffff;
+    background: #f8f9fa;
     color: #333;
     padding: 12px;
     border-radius: 8px;
@@ -68,28 +43,28 @@ h1 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Efecto al pasar el mouse */
+/* 🔵 Efecto hover */
 .choice-item:hover {
-    background: #00b4db;
+    background: #5a67d8;
     color: white;
 }
 
-/* Efecto cuando se selecciona una opción */
+/* ✅ Respuesta seleccionada */
 .selected {
-    background: #4CAF50;
+    background: #28a745; /* Verde oscuro más vibrante */
     color: white;
     transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(76, 175, 80, 0.8);
+    box-shadow: 0 0 12px rgba(40, 167, 69, 0.8);
 }
 
-/* Opciones no seleccionadas se atenúan */
+/* ❌ Opciones no seleccionadas */
 .unselected {
     opacity: 0.5;
 }
 
-/* Botón de siguiente pregunta */
+/* ⏭ Botón Next */
 #next-btn {
-    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    background: #f39c12;
     color: white;
     padding: 12px 20px;
     border-radius: 8px;
@@ -101,13 +76,13 @@ h1 {
 }
 
 #next-btn:hover {
-    background: linear-gradient(45deg, #ff4b2b, #ff416c);
+    background: #e67e22;
     transform: scale(1.05);
 }
 
-/* Botón de volver a jugar */
+/* 🔄 Botón de volver a jugar */
 #play-again-btn {
-    background: linear-gradient(45deg, #007BFF, #00b4db);
+    background: #3498db;
     color: white;
     padding: 12px 20px;
     border-radius: 8px;
@@ -120,11 +95,11 @@ h1 {
 }
 
 #play-again-btn:hover {
-    background: linear-gradient(45deg, #00b4db, #007BFF);
+    background: #2980b9;
     transform: scale(1.05);
 }
 
-/* Estilos del temporizador */
+/* 📌 🕑 Temporizador */
 #timer {
     font-size: 1.2rem;
     font-weight: bold;
@@ -132,63 +107,57 @@ h1 {
     margin-bottom: 10px;
 }
 
-/* Lista de resultados */
-.results-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 15px;
-}
-
-/* Estilo de respuestas correctas e incorrectas */
+/* 📌 Estilos de respuestas correctas e incorrectas */
 .correct-answer {
-    background: #4CAF50;
+    background: #2ecc71; /* Verde claro */
     color: white;
     padding: 12px;
-    border-radius: 5px;
+    border-radius: 8px;
     margin: 5px 0;
 }
 
 .incorrect-answer {
-    background: #ff4b2b;
+    background: #e74c3c; /* Rojo mejorado */
     color: white;
     padding: 12px;
-    border-radius: 5px;
+    border-radius: 8px;
     margin: 5px 0;
 }
 
 /* 🌑 Dark Mode */
 .dark-mode {
-    background: linear-gradient(120deg, #2c3e50, #34495e);
+    background: linear-gradient(120deg, #141e30, #243b55);
     color: #fff;
 }
 
-/* Contenedor en modo oscuro */
+/* 📌 Contenedor en modo oscuro */
 .dark-mode #quiz-container {
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
-/* Opciones en modo oscuro */
+/* 📌 Opciones en modo oscuro */
 .dark-mode .choice-item {
-    background: #333;
+    background: #2c3e50;
     color: white;
 }
 
 .dark-mode .selected {
-    background: #4CAF50;
+    background: #27ae60;
     color: white;
 }
 
+/* 🌙 Mejor contraste en respuestas */
 .dark-mode .incorrect-answer {
-    background: #d32f2f;
+    background: #c0392b;
 }
 
 .dark-mode .correct-answer {
-    background: #388e3c;
+    background: #27ae60;
 }
 
-/* Botón de cambio de modo */
+/* 🎛 Botón de cambio de modo */
 #theme-toggle {
     position: fixed;
     top: 15px;
@@ -198,7 +167,7 @@ h1 {
     cursor: pointer;
     border: none;
     border-radius: 8px;
-    background: linear-gradient(45deg, #ffcc00, #ff9900);
+    background: linear-gradient(45deg, #3498db, #2980b9);
     color: white;
     font-weight: bold;
     transition: all 0.3s ease-in-out;
@@ -206,6 +175,6 @@ h1 {
 }
 
 #theme-toggle:hover {
-    background: linear-gradient(45deg, #ff9900, #ffcc00);
+    background: linear-gradient(45deg, #2980b9, #3498db);
     transform: scale(1.1);
 }
